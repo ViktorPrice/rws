@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 <?= $form->field($model, 'username')->textInput() ?>
 <?= $form->field($model, 'email')->input('email') ?>
-<?= $form->field($model, 'password')->passwordInput() ?>
+<?= $form->field($model, 'password')->passwordInput() ?>1111
 
 <!-- Поле для выбора роли -->
 <?= $form->field($model, 'role_id')->dropdownList(

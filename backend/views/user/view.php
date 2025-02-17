@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -34,6 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             'created_at:datetime',
             'updated_at:datetime',
+            [
+                'attribute' => 'role',
+                'value' => function ($model) {
+                    $roles = Yii::$app->authManager->getRolesByUser($model->id);
+                    return implode(', ', array_keys($roles));
+                },
+            ],
         ],
     ]) ?>
 </div>

@@ -4,13 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model yii\rbac\Role */
+/* @var $model backend\models\RoleForm */
 
-$this->title = 'Добавить роль';
+$this->title = 'Редактировать роль: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Роли', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'name' => $model->name]];
+$this->params['breadcrumbs'][] = 'Редактировать';
 ?>
-<div class="role-create">
+<div class="role-update">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -18,7 +18,7 @@ class Request extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
 
-    public $urgency 
+    public $urgency; 
 
     public static function tableName()
     {

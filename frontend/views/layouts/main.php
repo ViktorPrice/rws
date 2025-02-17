@@ -27,48 +27,49 @@ AppAsset::register($this);
 
 <header>
     <?php
-NavBar::begin([
-    'brandLabel' => Yii::$app->name,
-    'brandUrl' => Yii::$app->homeUrl,
-    'options' => ['class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top'],
-]);
+    NavBar::begin([
+        'brandLabel' => Yii::$app->name,
+        'brandUrl' => Yii::$app->homeUrl,
+        'options' => ['class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top'],
+    ]);
 
-$menuItems = [
-    ['label' => 'Главная', 'url' => ['/site/index']],
-];
+    $menuItems = [
+        ['label' => 'Главная', 'url' => ['/site/index']],
+    ];
 
-if (Yii::$app->user->isGuest) {
-    $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
-    $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
-} else {
-    // Динамическое меню для разных ролей
-    $menuItems[] = ['label' => 'Заявки', 'url' => ['/request/index']];
-    
-    if (Yii::$app->user->can('Мастер участка')) {
-        $menuItems[] = ['label' => 'Назначения', 'url' => ['/assignment/index']];
+    if (Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Войти', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
+    } else {
+        // Динамическое меню для разных ролей
+        $menuItems[] = ['label' => 'Заявки', 'url' => ['/request/index']];
+        
+        if (Yii::$app->user->can('Мастер участка')) {
+            $menuItems[] = ['label' => 'Назначения', 'url' => ['/assignment/index']];
+        }
+        
+        if (Yii::$app->user->can('Администратор')) {
+            $menuItems[] = ['label' => 'Админка', 'url' => ['/admin/default/index']];
+            $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/user/index']];
+            $menuItems[] = ['label' => 'Роли', 'url' => ['/admin/role/index']];
+        }
+        
+        $menuItems[] = '<li>'
+            . Html::beginForm(['/site/logout'], 'post')
+            . Html::submitButton(
+                'Выйти (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>';
     }
-    
-    if (Yii::$app->user->can('Администратор')) {
-        $menuItems[] = ['label' => 'Пользователи', 'url' => ['/admin/user/index']];
-        $menuItems[] = ['label' => 'Роли', 'url' => ['/admin/role/index']];
-    }
-    
-    $menuItems[] = '<li>'
-        . Html::beginForm(['/site/logout'], 'post')
-        . Html::submitButton(
-            'Выйти (' . Yii::$app->user->identity->username . ')',
-            ['class' => 'btn btn-link logout']
-        )
-        . Html::endForm()
-        . '</li>';
-}
 
-echo Nav::widget([
-    'options' => ['class' => 'navbar-nav ml-auto'],
-    'items' => $menuItems,
-]);
+    echo Nav::widget([
+        'options' => ['class' => 'navbar-nav ml-auto'],
+        'items' => $menuItems,
+    ]);
 
-NavBar::end();
+    NavBar::end();
     ?>
 </header>
 
@@ -92,4 +93,4 @@ NavBar::end();
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage();
+<?php $this->endPage() ?>

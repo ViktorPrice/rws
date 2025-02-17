@@ -1,6 +1,6 @@
 <?php
 
-namespace app\\modules\;
+namespace app\modules\admin;
 
 /**
  * admin module definition class

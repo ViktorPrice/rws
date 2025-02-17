@@ -36,6 +36,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'filter' => ArrayHelper::map(Role::find()->all(), 'id', 'name'),
         ],
         ['class' => 'yii\grid\ActionColumn'],
+        [
+            'attribute' => 'role',
+            'value' => function ($model) {
+                $roles = Yii::$app->authManager->getRolesByUser($model->id);
+                return implode(', ', array_keys($roles));
+            },
+        ],
+        ['class' => 'yii\grid\ActionColumn'],
     ],
     ]); ?>
 

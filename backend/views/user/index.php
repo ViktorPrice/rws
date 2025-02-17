@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\UserSearch */
@@ -14,6 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <p>
+        <?= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -21,18 +28,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
             'id',
             'username',
-            'email:email',
-            'created_at:datetime',
-            'updated_at:datetime',
+            'email',
             [
                 'attribute' => 'role',
                 'value' => function ($model) {
-                    return $model->getRoleName();
+                    $roles = Yii::$app->authManager->getRolesByUser($model->id);
+                    return implode(', ', array_keys($roles));
                 },
-                'filter' => ['admin' => 'Админ', 'master' => 'Мастер']
             ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?= Html::a('Добавить пользователя', ['create'], ['class' => 'btn btn-success']) ?>
+
+    <?php Pjax::end(); ?>
+
 </div>
