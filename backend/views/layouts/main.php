@@ -62,6 +62,11 @@ AppAsset::register($this);
             [
                 'label' => 'Личный кабинет',
                 'url' => ['/profile/index']
+            ],
+            [
+                'label' => 'Перейти на фронтенд',
+                'url' => '@backend', // Замените 'http://frontend-url' на реальный URL вашего фронтенда
+                'visible' => Yii::$app->user->can('admin')
             ]
         ];
     }
